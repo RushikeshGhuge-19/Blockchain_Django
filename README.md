@@ -109,4 +109,4 @@ For any inquiries, please contact:
 
 - **Vedant Joshi**
 - GitHub: [2VedantJoshi](https://github.com/2VedantJoshi)
-- Email: 
+- Email: [vedantjoshi220@gmail.com]
