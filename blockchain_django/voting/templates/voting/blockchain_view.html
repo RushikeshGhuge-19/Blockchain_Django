@@ -1,0 +1,31 @@
+<!-- voting/templates/voting/blockchain_view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockchain View</title>
+</head>
+<body>
+    <h1>Blockchain</h1>
+    <ul>
+        {% for block in chain %}
+            <li>
+                Block {{ block.index }} - Timestamp: {{ block.timestamp }}
+                <ul>
+                    <li>Proof: {{ block.proof }}</li>
+                    <li>Previous Hash: {{ block.previous_hash }}</li>
+                    <li>Transactions:
+                        <ul>
+                            {% for transaction in block.transactions %}
+                                <li>{{ transaction.sender }} → {{ transaction.recipient }}: {{ transaction.amount }} votes</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'candidate_list' %}">Back to Candidates</a>
+</body>
+</html>
