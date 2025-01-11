@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate List</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #1a1a1a, #0a0a0a); /* Dark Blockchain Background */
+            height: 100vh;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .navbar-dark .navbar-nav .nav-link {
+            color: #1abc9c; /* Neon Greenish Blue */
+        }
+
+        .navbar-dark .navbar-nav .nav-link:hover {
+            color: #16a085; /* Slightly darker neon blue */
+        }
+
+        .table-responsive {
+            margin-top: 30px;
+        }
+
+        table {
+            background-color: #2c3e50; /* Dark Blue with slight metallic feel */
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #34495e; /* Subtle metallic border */
+        }
+
+        thead {
+            background-color: #34495e; /* Darker header */
+        }
+
+        thead th {
+            color: #black; /* Light Gray for table headers */
+        }
+
+        tbody tr {
+            background-color: #2c3e50;
+        }
+
+        tbody tr:hover {
+            background-color: #34495e; /* Highlight row on hover */
+        }
+
+        tbody td {
+            color: #ecf0f1; /* Light text for table data */
+        }
+
+        tbody td a {
+            color: #ecf0f1; /* Light text for table data */
+        }
+
+
+        .btn {
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #1abc9c;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #16a085;
+        }
+
+        .btn-success {
+            background-color: #1abc9c;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #16a085;
+        }
+
+        .text-center a {
+            color: #1abc9c;
+            text-decoration: none;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            margin-top: 30px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #1abc9c; /* Neon Greenish Blue */
+        }
+
+        .back-link {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'voting:home' %}">Voting System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'voting:candidate_list' %}">View Candidates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'voting:create_candidate' %}">Create Candidate</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'voting:blockchain_view' %}">View Blockchain</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Candidates</h1>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Party</th>
+                        <th>Votes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if candidates %}
+                        {% for candidate in candidates %}
+                            <tr class="text-center">
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ candidate.name }}</td>
+                                <td>{{ candidate.party }}</td>
+                                <td>{{ candidate.votes }}</td>
+                                <td>
+                                    <a href="{% url 'voting:vote_candidate' candidate.id %}" class="btn btn-success btn-sm">Vote</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class="text-center">No candidates available. <a href="{% url 'voting:create_candidate' %}">Add one here</a>.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'voting:create_candidate' %}" class="btn btn-primary">Create Candidate</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
